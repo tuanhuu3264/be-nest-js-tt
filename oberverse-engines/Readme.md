@@ -1,4 +1,4 @@
-# Sync Engines Service
+# Oberverse Engines Service
 
 NestJS microservice với GraphQL.
 
@@ -35,14 +35,14 @@ npm run start:debug
 
 ```bash
 # HTTP Server
-PORT=3005
+PORT=3003
 ```
 
 ## Endpoints
 
 ### HTTP Server
-- Port: `3005` (mặc định)
-- GraphQL Playground: `http://localhost:3005/graphql`
+- Port: `3003` (mặc định)
+- GraphQL Playground: `http://localhost:3003/graphql`
 
 ## Scripts
 
