@@ -1,0 +1,26 @@
+{
+  "name": "@packages/loader",
+  "version": "1.0.0",
+  "description": "Loader package with rule-based config loader",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^3.2.0",
+    "js-yaml": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/js-yaml": "^4.0.9",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^3.2.0"
+  }
+}
+

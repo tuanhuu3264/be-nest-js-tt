@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package profile;
+
+service ProfileService {
+  rpc CreateProfile (CreateProfileRequest) returns (ProfileResponse);
+  rpc GetProfile (GetProfileRequest) returns (ProfileResponse);
+  rpc UpdateProfile (UpdateProfileRequest) returns (ProfileResponse);
+  rpc DeleteProfile (DeleteProfileRequest) returns (DeleteProfileResponse);
+  rpc GetProfileByUserId (GetProfileByUserIdRequest) returns (ProfileResponse);
+}
+
+message CreateProfileRequest {
+  int64 userId = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string bio = 4;
+  string avatar = 5;
+  string phone = 6;
+  string email = 7;
+  string dateOfBirth = 8;
+}
+
+message GetProfileRequest {
+  string id = 1;
+}
+
+message UpdateProfileRequest {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string bio = 4;
+  string avatar = 5;
+  string phone = 6;
+  string email = 7;
+  string dateOfBirth = 8;
+}
+
+message DeleteProfileRequest {
+  string id = 1;
+}
+
+message DeleteProfileResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetProfileByUserIdRequest {
+  int64 userId = 1;
+}
+
+message ProfileResponse {
+  string id = 1;
+  int64 userId = 2;
+  string firstName = 3;
+  string lastName = 4;
+  string bio = 5;
+  string avatar = 6;
+  string phone = 7;
+  string email = 8;
+  string dateOfBirth = 9;
+  string createdAt = 10;
+  string updatedAt = 11;
+}
+
