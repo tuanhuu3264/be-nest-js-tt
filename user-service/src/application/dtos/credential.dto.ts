@@ -54,7 +54,7 @@ export class VerifyCredentialDto {
 @ObjectType()
 export class CredentialResponseDto {
   @Field(() => String)
-  id: string; // Credential ID vẫn dùng string (UUID), chỉ User ID dùng Snowflake
+  id: string; 
 
   @Field(() => Int)
   userId: number;
