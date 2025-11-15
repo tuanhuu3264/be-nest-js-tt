@@ -34,7 +34,11 @@ import config from './config/config';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      typePaths: [join(process.cwd(), '../graphql-schemas/user-service/schema.gql')],
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.schema.ts'),
+        outputAs: 'class',
+      },
       sortSchema: true,
       playground: true,
       introspection: true,
