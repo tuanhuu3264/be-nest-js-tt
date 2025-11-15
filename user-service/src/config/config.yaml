@@ -1,6 +1,5 @@
 app:
   port: 3000
-  grpcUrl: "0.0.0.0:5000"
 
   postgres:
     host: localhost

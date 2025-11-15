@@ -6,7 +6,6 @@ import * as yaml from 'js-yaml';
 interface ConfigYaml {
   app?: {
     port?: number;
-    grpcUrl?: string;
     postgres?: {
       host?: string;
       port?: number;
@@ -82,7 +81,6 @@ export default registerAs('app', () => {
       3000,
       (value) => parseInt(value, 10),
     ),
-    grpcUrl: getConfigValue(config?.grpcUrl, process.env.GRPC_URL, '0.0.0.0:5000'),
     postgres: {
       host: getConfigValue(config?.postgres?.host, process.env.POSTGRES_HOST, 'localhost'),
       port: getConfigValue(

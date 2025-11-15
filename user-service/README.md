@@ -1,6 +1,6 @@
 # User Service
 
-NestJS microservice với gRPC, GraphQL, PostgreSQL, Cassandra, Redis và Kafka.
+NestJS microservice với GraphQL, PostgreSQL, Cassandra, Redis và Kafka.
 
 ## Cài đặt
 
@@ -41,9 +41,6 @@ Bạn có thể override config bằng các biến môi trường:
 # HTTP Server
 PORT=3000
 
-# gRPC Server
-GRPC_URL=0.0.0.0:5000
-
 # PostgreSQL
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
@@ -82,10 +79,6 @@ SNOWFLAKE_MACHINE_ID=1
 ### HTTP Server
 - Port: `3000` (mặc định)
 - GraphQL Playground: `http://localhost:3000/graphql`
-
-### gRPC Server
-- Port: `5000` (mặc định)
-- URL: `0.0.0.0:5000`
 
 ## Scripts
 

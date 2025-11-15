@@ -5,10 +5,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserController } from './interfaces/controllers/user.controller';
-import { AccountController } from './interfaces/controllers/account.controller';
-import { ProfileController } from './interfaces/controllers/profile.controller';
-import { CredentialController } from './interfaces/controllers/credential.controller';
 import { UserService } from './application/services/user.service';
 import { AccountService } from './application/services/account.service';
 import { ProfileService } from './application/services/profile.service';
@@ -51,10 +47,6 @@ import config from './config/config';
   ],
   controllers: [
     AppController,
-    UserController,
-    AccountController,
-    ProfileController,
-    CredentialController,
   ],
   providers: [
     AppService,

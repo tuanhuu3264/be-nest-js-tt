@@ -4,10 +4,9 @@
 
 Ứng dụng đã sẵn sàng để test với:
 - ✅ HTTP Server (GraphQL) - Port 3000
-- ✅ gRPC Server - Port 5000
 - ✅ Repositories (In-memory) - Hoạt động
 - ✅ GraphQL Schema đã được generate
-- ✅ Tất cả controllers và resolvers đã được implement
+- ✅ Tất cả resolvers đã được implement
 
 ## 🚀 Cách chạy ứng dụng
 
@@ -18,7 +17,7 @@ npm run start:dev
 Sau khi chạy, bạn sẽ thấy:
 ```
 HTTP Server running on: 3000
-gRPC Server running on: 0.0.0.0:5000
+GraphQL Playground: http://localhost:3000/graphql
 ```
 
 ## 📝 Test GraphQL (HTTP)
@@ -197,61 +196,6 @@ mutation {
 }
 ```
 
-## 🔌 Test gRPC
-
-### Sử dụng grpcurl (cần cài đặt)
-
-#### Install grpcurl
-```bash
-# Windows (choco)
-choco install grpcurl
-
-# Mac
-brew install grpcurl
-
-# Linux
-# Download from https://github.com/fullstorydev/grpcurl/releases
-```
-
-#### List Services
-```bash
-grpcurl -plaintext localhost:5000 list
-```
-
-#### Test Create User
-```bash
-grpcurl -plaintext -d '{
-  "email": "test@example.com",
-  "username": "testuser",
-  "password": "password123",
-  "phone": "0123456789"
-}' localhost:5000 user.UserService/CreateUser
-```
-
-#### Test Get User
-```bash
-grpcurl -plaintext -d '{
-  "id": 1234567890123456789
-}' localhost:5000 user.UserService/GetUser
-```
-
-#### Test List Users
-```bash
-grpcurl -plaintext -d '{
-  "page": 1,
-  "limit": 10
-}' localhost:5000 user.UserService/ListUsers
-```
-
-### Sử dụng Postman (có hỗ trợ gRPC)
-
-1. Mở Postman
-2. Tạo request mới → chọn gRPC
-3. URL: `localhost:5000`
-4. Import proto files từ thư mục `proto/`
-5. Chọn service và method
-6. Gửi request
-
 ## 🧪 Test với cURL (HTTP REST)
 
 ### Test Hello World endpoint
@@ -297,10 +241,6 @@ query {
 ### Lỗi kết nối PostgreSQL
 - Repositories hiện dùng in-memory, không cần PostgreSQL để test
 - Nếu muốn dùng PostgreSQL, cần implement TypeORM entities
-
-### Lỗi gRPC connection
-- Kiểm tra port 5000 có bị chiếm không
-- Kiểm tra firewall settings
 
 ### GraphQL không load
 - Kiểm tra port 3000
