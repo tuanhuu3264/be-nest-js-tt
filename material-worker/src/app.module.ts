@@ -7,6 +7,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MediaService } from './application/services/media.service';
 import { MediaInteractionService } from './application/services/media_interaction.service';
+import { FileProcessingService } from './application/services/file-processing.service';
+import { KafkaConsumerService } from './application/services/kafka-consumer.service';
 import { MediaResolver } from './infrastructure/graphQL/media.resolver';
 import { MediaInteractionResolver } from './infrastructure/graphQL/media_interaction.resolver';
 import { SnowflakeService } from './infrastructure/common/snowflake.service';
@@ -18,6 +20,7 @@ import { KafkaService } from './infrastructure/queue/kafka/kafka.service';
 import { RedisService } from './infrastructure/presistences/redis/redis.service';
 import { MinIOModule } from './infrastructure/storage/minio/minio.module';
 import { MinIOService } from './infrastructure/storage/minio/minio.service';
+import { MinIOHealthService } from './infrastructure/storage/minio/minio.health';
 import { MinIOController } from './infrastructure/storage/minio/minio.controller';
 import { MediaRepository } from './infrastructure/presistences/postgres/repositories/media.repository';
 import { MediaInteractionRepository } from './infrastructure/presistences/postgres/repositories/media_interaction.repository';
@@ -31,11 +34,7 @@ import config from './config/config';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      typePaths: [join(process.cwd(), '../graphql-schemas/material-worker/schema.gql')],
-      definitions: {
-        path: join(process.cwd(), 'src/graphql.schema.ts'),
-        outputAs: 'class',
-      },
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: true,
       introspection: true,
@@ -55,11 +54,14 @@ import config from './config/config';
     AppService,
     MediaService,
     MediaInteractionService,
+    FileProcessingService,
+    KafkaConsumerService,
     MediaResolver,
     MediaInteractionResolver,
     KafkaService,
     RedisService,
     MinIOService,
+    MinIOHealthService,
     SnowflakeService,
     // Repository implementations
     {

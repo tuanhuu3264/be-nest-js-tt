@@ -1,14 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { json, urlencoded } from 'express';
+import { ConfigService } from '@nestjs/config';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    // Let NestJS handle body parsing automatically
+    bodyParser: true,
+  });
 
-  // Configure body parser - MUST be before other middleware
-  app.use(json({ limit: '10mb' }));
-  app.use(urlencoded({ extended: true, limit: '10mb' }));
+  // Configure body size limits (doesn't conflict with GraphQL)
+  app.useBodyParser('json', { limit: '10mb' });
+  app.useBodyParser('urlencoded', { limit: '10mb', extended: true });
 
   // Enable CORS
   app.enableCors();
@@ -22,10 +26,14 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(process.env.PORT ?? 3002);
+  // Get port from config
+  const configService = app.get(ConfigService);
+  const port = process.env.PORT || configService.get<number>('app.port', 3001);
 
-  console.log(`HTTP Server running on: ${process.env.PORT ?? 3002}`);
-  console.log(`GraphQL Playground: http://localhost:${process.env.PORT ?? 3002}/graphql`);
+  await app.listen(port);
+
+  console.log(`HTTP Server running on: ${port}`);
+  console.log(`GraphQL Playground: http://localhost:${port}/graphql`);
 }
 bootstrap();
 

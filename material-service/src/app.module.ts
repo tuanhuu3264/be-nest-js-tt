@@ -7,8 +7,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MediaService } from './application/services/media.service';
 import { MediaInteractionService } from './application/services/media_interaction.service';
+import { FileUploadService } from './application/services/file-upload.service';
+import { ProcessingCompletionService } from './application/services/processing-completion.service';
 import { MediaResolver } from './infrastructure/graphQL/media.resolver';
 import { MediaInteractionResolver } from './infrastructure/graphQL/media_interaction.resolver';
+import { FileUploadResolver } from './infrastructure/graphQL/file-upload.resolver';
 import { SnowflakeService } from './infrastructure/common/snowflake.service';
 import { PostgresModule } from './infrastructure/presistences/postgres/postgres.module';
 import { CassandraModule } from './infrastructure/presistences/cansadara/cassandra.module';
@@ -19,8 +22,10 @@ import { RedisService } from './infrastructure/presistences/redis/redis.service'
 import { MinIOModule } from './infrastructure/storage/minio/minio.module';
 import { MinIOService } from './infrastructure/storage/minio/minio.service';
 import { MinIOController } from './infrastructure/storage/minio/minio.controller';
+import { FileUploadController } from './infrastructure/controllers/file-upload.controller';
 import { MediaRepository } from './infrastructure/presistences/postgres/repositories/media.repository';
 import { MediaInteractionRepository } from './infrastructure/presistences/postgres/repositories/media_interaction.repository';
+import { MediaProcessingRepository } from './infrastructure/presistences/postgres/repositories/media-processing.repository';
 import config from './config/config';
 
 @Module({
@@ -50,13 +55,17 @@ import config from './config/config';
   controllers: [
     AppController,
     MinIOController,
+    FileUploadController,
   ],
   providers: [
     AppService,
     MediaService,
     MediaInteractionService,
+    FileUploadService,
+    ProcessingCompletionService,
     MediaResolver,
     MediaInteractionResolver,
+    FileUploadResolver,
     KafkaService,
     RedisService,
     MinIOService,
@@ -69,6 +78,10 @@ import config from './config/config';
     {
       provide: 'IMediaInteractionRepository',
       useClass: MediaInteractionRepository,
+    },
+    {
+      provide: 'IMediaProcessingRepository',
+      useClass: MediaProcessingRepository,
     },
   ],
 })

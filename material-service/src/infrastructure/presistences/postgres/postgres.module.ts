@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MediaProcessingEntity, ProcessedFileEntity } from './entities/media-processing.entity';
 
 @Module({
   imports: [
@@ -32,7 +33,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       },
       inject: [ConfigService],
     }),
+    // Register entities for @InjectRepository to work
+    TypeOrmModule.forFeature([MediaProcessingEntity, ProcessedFileEntity]),
   ],
+  exports: [TypeOrmModule],
 })
 export class PostgresModule {}
 

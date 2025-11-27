@@ -4,8 +4,8 @@ app:
   postgres:
     host: localhost
     port: 5432
-    username: admin
-    password: admin123
+    username: postgres
+    password: postgres
     database: mydb
     sync: true
     logging: true
@@ -21,10 +21,23 @@ app:
   kafka:
     clientId: material-worker
     brokers:
-      - localhost:9092
+      - localhost:9093
     groupId: material-worker-group
     retries: 8
     initialRetryTime: 100
+    # Security settings - PLAINTEXT (no SSL, no SASL)
+    ssl: false
+    sasl: null
+    connectionTimeout: 3000
+    requestTimeout: 30000
+    enforceRequestTimeout: false
+    # Consumer settings
+    sessionTimeout: 30000
+    heartbeatInterval: 3000
+    maxWaitTimeInMs: 5000
+    # Producer settings
+    acks: 1
+    compression: gzip
 
   redis:
     host: localhost
@@ -39,8 +52,20 @@ app:
     endPoint: localhost
     port: 9000
     useSSL: false
-    accessKey: minioadmin
-    secretKey: minioadmin
+    accessKey: admin
+    secretKey: StrongPassword123!
     bucketName: material-worker
+    sourceBucket: material-service # Bucket where material-service uploads files
     region: us-east-1
-
+    # Connection settings
+    connectTimeout: 5000
+    requestTimeout: 10000
+    # Retry settings
+    maxRetries: 3
+    retryDelay: 1000
+    # Multipart upload settings
+    partSize: 64MB
+    # Security settings
+    sessionToken: null
+    # Public access
+    publicRead: false

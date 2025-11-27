@@ -1,7 +1,7 @@
 {
-  "name": "material-worker",
+  "name": "search-service",
   "version": "0.0.1",
-  "description": "",
+  "description": "Search service with Elasticsearch integration",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -20,33 +20,16 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@apollo/server": "^4.12.2",
-    "@nestjs/apollo": "^12.2.0",
-    "@nestjs/bull": "^10.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^3.2.0",
     "@nestjs/core": "^11.0.1",
-    "@nestjs/graphql": "^12.2.0",
     "@nestjs/platform-express": "^11.0.1",
-    "@nestjs/typeorm": "^10.0.2",
-    "bcrypt": "^5.1.1",
-    "bull": "^4.12.0",
-    "cassandra-driver": "^4.7.2",
+    "@elastic/elasticsearch": "^8.15.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
-    "fluent-ffmpeg": "^2.1.2",
-    "graphql": "^16.8.1",
-    "ioredis": "^5.8.2",
     "js-yaml": "^4.1.1",
-    "kafkajs": "^2.2.4",
-    "minio": "^8.0.1",
-    "pg": "^8.11.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1",
-    "sharp": "^0.33.1",
-    "snowflake-id": "^1.0.0",
-    "typeorm": "^0.3.20",
-    "uuid": "^9.0.1"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -54,18 +37,11 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
-    "@types/bcrypt": "^5.0.2",
-    "@types/bull": "^4.10.0",
-    "@types/cassandra-driver": "^4.1.0",
     "@types/express": "^5.0.0",
-    "@types/fluent-ffmpeg": "^2.1.24",
     "@types/jest": "^30.0.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/minio": "^7.1.1",
     "@types/node": "^22.10.7",
-    "@types/sharp": "^0.32.0",
     "@types/supertest": "^6.0.2",
-    "@types/uuid": "^9.0.8",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
@@ -76,7 +52,6 @@
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.2",
-    "ts-morph": "^27.0.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
@@ -100,3 +75,4 @@
     "testEnvironment": "node"
   }
 }
+

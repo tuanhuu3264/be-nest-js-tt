@@ -1,7 +1,13 @@
 import { Injectable, Inject, OnModuleInit, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as MinIO from 'minio';
+import { BucketItem } from 'minio';
 import { MINIO_CLIENT } from './minio.module';
+
+export interface UploadedObjectInfo {
+  etag: string;
+  versionId: string | null;
+}
 
 export interface PresignedUrlOptions {
   expiresIn?: number; // seconds, default 7 days
@@ -112,7 +118,7 @@ export class MinIOService implements OnModuleInit {
     objectName: string,
     filePath: string,
     metadata?: MinIO.ItemBucketMetadata,
-  ): Promise<MinIO.UploadedObjectInfo> {
+  ): Promise<UploadedObjectInfo> {
     try {
       const result = await this.minioClient.fPutObject(this.bucketName, objectName, filePath, metadata);
       this.logger.log(`File uploaded successfully: ${objectName}`);
@@ -133,7 +139,7 @@ export class MinIOService implements OnModuleInit {
     objectName: string,
     buffer: Buffer,
     metadata?: MinIO.ItemBucketMetadata,
-  ): Promise<MinIO.UploadedObjectInfo> {
+  ): Promise<UploadedObjectInfo> {
     try {
       const result = await this.minioClient.putObject(this.bucketName, objectName, buffer, buffer.length, metadata);
       this.logger.log(`Buffer uploaded successfully: ${objectName}`);
@@ -157,6 +163,22 @@ export class MinIOService implements OnModuleInit {
       this.logger.error(`Failed to download file: ${objectName}`, error);
       throw error;
     }
+  }
+
+  /**
+   * Get the MinIO client instance
+   * @returns MinIO client
+   */
+  getClient(): MinIO.Client {
+    return this.minioClient;
+  }
+
+  /**
+   * Get bucket name
+   * @returns Bucket name
+   */
+  getBucketName(): string {
+    return this.bucketName;
   }
 
   /**
@@ -232,13 +254,13 @@ export class MinIOService implements OnModuleInit {
    * @param recursive - Whether to list recursively
    * @returns List of objects
    */
-  async listObjects(prefix?: string, recursive: boolean = true): Promise<MinIO.BucketItem[]> {
+  async listObjects(prefix?: string, recursive: boolean = true): Promise<BucketItem[]> {
     try {
-      const objects: MinIO.BucketItem[] = [];
+      const objects: BucketItem[] = [];
       const stream = this.minioClient.listObjects(this.bucketName, prefix, recursive);
 
       return new Promise((resolve, reject) => {
-        stream.on('data', (obj) => objects.push(obj));
+        stream.on('data', (obj: BucketItem) => objects.push(obj));
         stream.on('end', () => resolve(objects));
         stream.on('error', reject);
       });

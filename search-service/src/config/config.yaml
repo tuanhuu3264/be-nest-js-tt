@@ -1,0 +1,14 @@
+app:
+  port: 3000
+  elasticsearch:
+    node: http://localhost:9200
+    nodes:
+      - http://localhost:9200
+    # username: elastic
+    # password: changeme
+    ssl:
+      rejectUnauthorized: true
+    requestTimeout: 30000
+    pingTimeout: 3000
+    maxRetries: 3
+
